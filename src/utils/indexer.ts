@@ -5,6 +5,7 @@ import {
   API_DATA_SERVICE_DOMAIN_URL,
   API_FASTERNEAR_DOMAIN_URL,
 } from "./constant";
+import axios from "axios";
 import { toReadableNumber } from "rhea-dex-swap-sdk";
 interface IAsset {
   name: string;
@@ -63,10 +64,10 @@ export async function fetchUserPoints(accountId: string) {
   };
 }
 export async function fetchTopTokens() {
-  const res = await fetch(
+  const { data } = await axios(
     `${API_DATA_SERVICE_DOMAIN_URL}/overview/list_top_tokens`
-  ).then((res) => res.json());
-  const list = res.map((t: any) => {
+  );
+  const list = data.map((t: any) => {
     const newT: any = {};
     newT.token = t.token_id;
     newT.symbol = t.symbol;
