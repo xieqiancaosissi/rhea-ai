@@ -182,6 +182,7 @@ export async function GET(request: NextRequest) {
     // ------------------------------response
     return NextResponse.json({
       transactions,
+      priceImpactValue: priceImpact,
       priceImpact: priceImpactDisplay,
       amountOut: displayExpectAmountOut,
       prompt: `Before triggering generate-transaction ask the user to confirm the effects of the transaction: priceImpact and amountOut`,
