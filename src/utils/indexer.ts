@@ -61,6 +61,7 @@ export async function fetchUserPoints(accountId: string) {
     liquidity_points: res.data.liquidity_points,
     trade_points: res.data.trade_points,
     total_points: res.data.total_points,
+    invite_points: res.data.invite_points,
   };
 }
 export async function fetchTopTokens() {
