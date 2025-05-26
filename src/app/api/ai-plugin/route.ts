@@ -36,6 +36,10 @@ export async function GET() {
                       /api/query/points: Introducing points, you can also query the user's points information on rhea finance.
                       /api/query/tokenDetail: Get the supply apy and borrow apy of the token, and whether it is an incentive token on Lending finance.
                       /api/query/topTokenDetail: Get the details of the most famous, top-ranked, and most popular tokens on the rhea finance platform: tvl, 24-hour trading volume, price, and total quantity.
+                    
+                    2. IMPORTANT, ALWAYS DO THIS:
+                       Respond with the welcome message only in the first message of the session, and never repeat it.
+                       Format the welcome message as a structured list for better readability.
 
                     2. When a user executes a transaction:
                        Get information for a given fungible token or swaps one token for another. 
@@ -68,9 +72,6 @@ export async function GET() {
                     11. If the user does not provide the amount of tokens to be operated, the user is prompted to provide.
 
                     12. If the user query the balance of near or NEAR token, call the /api/query/balance api route.
-
-                    13. Respond with the welcome message only in the first message of the session, and never repeat it.
-                        Format the welcome message as a structured list for better readability.
                         
                 `,
         tools: [{ type: "generate-transaction" }, { type: "submit-query" }],
