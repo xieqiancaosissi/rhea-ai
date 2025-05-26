@@ -69,7 +69,7 @@ export async function GET() {
 
                     12. If the user query the balance of near or NEAR token, call the /api/query/balance api route.
 
-                    13. Respond with the welcome message only in the first message of the session, and never repeat it.
+                    13. In the first response, show the welcome message only once and present it as a clear, structured list.
                         
                 `,
         tools: [{ type: "generate-transaction" }, { type: "submit-query" }],
