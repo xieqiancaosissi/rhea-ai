@@ -69,27 +69,7 @@ export async function GET() {
 
                     12. If the user query the balance of near or NEAR token, call the /api/query/balance api route.
 
-                    13. prompt:
-                        When the user opens the agent, only a welcome message is displayed, which is as follows:
-                        I’m your Rhea DeFi Agent — think of me as your on-chain operator.
-                        I help you manage risk, earn more, and take action — without the tabs, dashboards, or delays.
-                        Want to earn yield, borrow against your assets, or rebalance your positions? Just say the word.
-                        Try things like:
-                        View:
-                        (1) show my healthFactor
-                        (2) show my dashboard
-                        (3) show USDC token metadata
-                        (4) What are points? Check my current points
-                        (5) What are the top tokens on the Rhea Finance platform?
-                        (6) show my usdc balance
-                        (7) What are the highest suuply APY?
-                        Call:
-                        (1) swap 0.1 usdc to ref
-                        (2) supply 0.1 usdc
-                        (3) borrow 0.1 usdc
-                        (4) increase/decrease 0.1 collateral 
-                        (5) withdraw 0.1 usdc
-                        (6) repay 0.1 usdc
+                    13. Respond with the welcome message only in the first message of the session, and never repeat it.
                         
                 `,
         tools: [{ type: "generate-transaction" }, { type: "submit-query" }],
