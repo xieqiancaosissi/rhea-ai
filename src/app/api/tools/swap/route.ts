@@ -4,7 +4,12 @@ import { getMatchTokens } from "@/utils/search-token";
 import { getSlippageTolerance } from "@/utils/slippage";
 import { fetchAllPools, getTokenPriceList, findPath } from "@/utils/indexer";
 import { toNonDivisibleNumber, toReadableNumber } from "@/utils/tools";
-import { nearDepositTranstion, registerOnToken } from "@/utils/common";
+import {
+  nearDepositTranstion,
+  nearWithdrawTranstion,
+  registerOnToken,
+  validateParams,
+} from "@/utils/common";
 import { WRAP_NEAR_CONTRACT_ID, REF_FI_CONTRACT_ID } from "@/utils/constant";
 import { ftGetAvaBalance } from "rhea-dex-swap-sdk";
 
@@ -18,6 +23,32 @@ export async function GET(request: NextRequest) {
     const headersList = request.headers;
     const mbMetadata = JSON.parse(headersList.get("mb-metadata") || "{}");
     const accountId = mbMetadata?.accountId;
+    const errorTip = validateParams([
+      {
+        value: accountId,
+        errorTip: "Need to log in first",
+      },
+    ]);
+    if (errorTip) {
+      return NextResponse.json({ data: errorTip }, { status: 200 });
+    }
+    // near <---> wnear
+    const _res = is_near_wnear_tx({ tokenIn: tokenIn!, tokenOut: tokenOut! });
+    if (_res) {
+      const result = await do_near_wnear_tx({
+        tokenIn: tokenIn!,
+        tokenOut: tokenOut!,
+        accountId,
+        quantity: quantity!,
+      });
+      return NextResponse.json(
+        {
+          ...result,
+        },
+        { status: 200 }
+      );
+    }
+    // swap
     const [tokenInData, tokenOutData] = await getMatchTokens(
       tokenIn!,
       tokenOut!
@@ -191,4 +222,80 @@ export async function GET(request: NextRequest) {
     console.error("Error swap", error);
     return NextResponse.json({ error: "Failed to swap" }, { status: 200 });
   }
+}
+
+async function do_near_wnear_tx({
+  tokenIn,
+  tokenOut,
+  accountId,
+  quantity,
+}: {
+  tokenIn: string;
+  tokenOut: string;
+  accountId: string;
+  quantity: string;
+}) {
+  console.log("------------tokenIn", tokenIn);
+  console.log("------------tokenOut", tokenOut);
+  console.log("------------quantity", quantity);
+  const isNEAR = tokenIn.toLocaleLowerCase() == "near";
+  const tokenBalance = await ftGetAvaBalance(
+    isNEAR ? "NEAR" : "wrap.near",
+    accountId
+  );
+  const balance = toReadableNumber(24, tokenBalance);
+  let availableBalance = balance;
+  if (isNEAR) {
+    availableBalance = Decimal.max(
+      new Decimal(balance || 0).minus(0.2),
+      0
+    ).toFixed(8);
+  }
+  if (new Decimal(quantity || 0).gt(availableBalance)) {
+    console.log("------------error");
+    return {
+      error: "Insufficient Balance",
+      availableBalance,
+    };
+  }
+  // near deposit
+  if (
+    tokenIn?.toLocaleLowerCase() == "near" &&
+    tokenOut?.toLocaleLowerCase() == "wnear"
+  ) {
+    const transactions = [];
+    const _nearRegister = await registerOnToken(
+      accountId,
+      WRAP_NEAR_CONTRACT_ID
+    );
+    if (_nearRegister) {
+      transactions.push(_nearRegister);
+    }
+    const _nearDeposit = nearDepositTranstion(accountId, quantity!);
+    transactions.push(_nearDeposit);
+    return { transactions };
+  } else if (
+    tokenIn?.toLocaleLowerCase() == "wnear" &&
+    tokenOut?.toLocaleLowerCase() == "near"
+  ) {
+    // near withdraw
+    const transactions = [];
+    const _nearWithdraw = nearWithdrawTranstion(accountId, quantity!);
+    transactions.push(_nearWithdraw);
+    return { transactions };
+  }
+}
+function is_near_wnear_tx({
+  tokenIn,
+  tokenOut,
+}: {
+  tokenIn: string;
+  tokenOut: string;
+}) {
+  return !!(
+    (tokenIn?.toLocaleLowerCase() == "near" &&
+      tokenOut?.toLocaleLowerCase() == "wnear") ||
+    (tokenIn?.toLocaleLowerCase() == "wnear" &&
+      tokenOut?.toLocaleLowerCase() == "near")
+  );
 }
