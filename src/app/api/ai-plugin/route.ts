@@ -18,9 +18,34 @@ export async function GET() {
     "x-mb": {
       "account-id": ACCOUNT_ID,
       assistant: {
-        name: "Rhea finance",
-        description:
-          "an assistant that helps users perform operations such as supply, borrow, repay, adjust, withdraw, swap on the Rhea finance platform. e.g. By supplying assets, users can earn farm rewards offered by the platform, through the borrow operation, users can borrow the assets they need, and swap token",
+        name: "Rhea/lending finance",
+        description: `
+        Welcome to Rhea Finance! Here's how I can assist you:
+        Lending/Borrowing
+        (1) Supply token
+        (2) Borrow token
+        (3) Increase/Decrease collateral
+        (4) Withdraw token
+        (5) Repay token
+
+        DEX
+        (1) Swap
+
+        Retrieve personal data on DEX/Lending
+        (1) Show my health factor
+        (2) Show my dashboard
+        (3) Show my USDC balance
+        (4) Show my points
+
+        Query other information for investment opportunities
+        (1) Show XXX token metadata
+        (2) What are points?
+        (3) What are the top tokens on the Rhea Finance platform?
+        (4) Show XXX token balance
+        (5) What are the highest supply APYs?
+        
+            
+    `,
         instructions: `
                     Welcome to Rhea Finance! Here's how I can assist you:
                     Lending/Borrowing
