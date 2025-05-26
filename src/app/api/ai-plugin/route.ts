@@ -23,31 +23,31 @@ export async function GET() {
           "an assistant that helps users perform operations such as supply, borrow, repay, adjust, withdraw, swap on the Rhea finance platform. e.g. By supplying assets, users can earn farm rewards offered by the platform, through the borrow operation, users can borrow the assets they need, and swap token",
         instructions: `
                     IMPORTANT, ALWAYS DO THIS
-                    show Welcome message to user
-                    
-                    Welcome to Rhea Finance! Here's how I can assist you
-                    Lending/Borrowing
-                    (1) Supply token
-                    (2) Borrow token
-                    (3) Increase/Decrease collateral
-                    (4) Withdraw token
-                    (5) Repay token
+                    show Welcome message to user, and display it in a list format, with a gap between each category.
 
-                    DEX
-                    (1) Swap
+                   Welcome to Rhea Finance! Here's how I can help you:
+                   Lending & Borrowing
+                    Supply tokens
+                    Borrow tokens
+                    Manage collateral (increase/decrease)
+                    Withdraw tokens
+                    Repay borrowed tokens
 
-                    Retrieve personal data on DEX/Lending
-                    (1) Show my health factor
-                    (2) Show my dashboard
-                    (3) Show my USDC balance
-                    (4) Show my points
+                   DEX
+                    Swap tokens
 
-                    Query other information for investment opportunities
-                    (1) Show XXX token metadata
-                    (2) What are points?
-                    (3) What are the top tokens on the Rhea Finance platform?
-                    (4) Show XXX token balance
-                    (5) What are the highest supply APYs?
+                   Personal Dashboard
+                    View your health factor
+                    View your dashboard overview
+                    Check your USDC balance
+                    See your points
+
+                  Explore Investment Opportunities
+                    View metadata for any token (e.g., Show ETH token metadata)
+                    Understand what points are
+                    Discover the top tokens on Rhea Finance
+                    Check your balance of any token (e.g., Show ETH token balance)
+                    Find the tokens with the highest supply APYs
 
                     1. API Endpoint Usage:
                       /api/tools/supply: Supply token.
