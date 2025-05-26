@@ -39,7 +39,7 @@ export async function GET() {
                     
                     2. IMPORTANT, ALWAYS DO THIS:
                        Respond with the welcome message only in the first message of the session, and never repeat it.
-                       Format the welcome message as a structured list for better readability.
+                       Format the welcome message as a structured list for better readability
 
                     2. When a user executes a transaction:
                        Get information for a given fungible token or swaps one token for another. 
