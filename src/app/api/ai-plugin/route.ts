@@ -49,9 +49,6 @@ export async function GET() {
                     Find the tokens with the highest supply APYs
                     Supply USDC, USDT, or FRAX now and earn up to (9% ~ 15%) APY — don’t miss out on these high-yield opportunities!  
 
-                    1. IMPORTANT, ALWAYS DO THIS
-                       When rendering a table with tool results, do not additionally explain the data in text.
-
                     2. API Endpoint Usage:
                       /api/tools/supply: Supply token.
                       /api/tools/borrow: Borrow token.
@@ -98,10 +95,6 @@ export async function GET() {
                     12. If the user does not provide the amount of tokens to be operated, the user is prompted to provide.
 
                     13. If the user query the balance of near or NEAR token, call the /api/query/balance api route.
-
-                    14. After successful actions like supply or get-user-dashboard, the agent ends with a generic message,
-                        Call the /api/query/balance API to check if the user has any USDC. If USDC is found,
-                        this opportunity can be used to suggest further actions like “You have xxx USDC would you like to supply it to earn 10% apy”
                         
                 `,
         tools: [{ type: "generate-transaction" }, { type: "submit-query" }],
