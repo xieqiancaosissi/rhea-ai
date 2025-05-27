@@ -7,6 +7,7 @@ import {
 } from "./constant";
 import axios from "axios";
 import { toReadableNumber } from "rhea-dex-swap-sdk";
+import { whitelisted_tokens } from "@/utils/tokens";
 interface IAsset {
   name: string;
   symbol: string;
@@ -109,5 +110,8 @@ export async function fetchUserTokens(accountId: string) {
       token: token.id,
     };
   });
-  return userTokens;
+  const filteredList = userTokens.filter((u: any) => {
+    return whitelisted_tokens.includes(u.token);
+  });
+  return filteredList;
 }
