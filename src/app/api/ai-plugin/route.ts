@@ -99,6 +99,8 @@ export async function GET() {
                     11. If the user does not provide the amount of tokens to be operated, the user is prompted to provide.
 
                     12. If the user query the balance of near or NEAR token, call the /api/query/balance api route.
+                    
+                    13. When rendering a table with tool results, do not additionally explain the data in text unless context is required.
                         
                 `,
         tools: [{ type: "generate-transaction" }, { type: "submit-query" }],
