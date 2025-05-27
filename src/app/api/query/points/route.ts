@@ -46,8 +46,7 @@ export async function GET(request: NextRequest) {
         ],
       },
       link: "https://guide.rhea.finance/products/guides/rhea-point-system",
-      prompt:
-        "Show the link to the user so that the user can learn more about the points.Display data in table format",
+      prompt: `The data will be rendered separately, so please do not explain or display the data again. Remember, you don't need to show the data— it will be rendered in the UI according to the specified style to avoid redundancy.`,
     });
   } catch (error) {
     console.error("Error points", error);
