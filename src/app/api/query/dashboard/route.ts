@@ -33,7 +33,7 @@ export async function GET(request: NextRequest) {
       },
       userTokens,
       prompt: `
-        1.When rendering a table with tool results, do not additionally explain the data in text.
+        1.The data will be rendered separately, so please do not explain or display the data again. Remember, you don't need to show the data— it will be rendered in the UI according to the specified style to avoid redundancy.
         2.After action successful,check if the user has USDC balance. If USDC balance is found,
           the agent ends with a generic message like: “You have xxx USDC would you like to supply it to earn 10% apy”
       `,

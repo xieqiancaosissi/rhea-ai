@@ -12,6 +12,8 @@ import {
   transferToTranstions,
   nearDepositTranstion,
 } from "@/utils/common";
+import { toReadableNumber } from "@/utils/tools";
+import { ftGetBalance } from "rhea-dex-swap-sdk";
 
 export async function GET(request: NextRequest) {
   try {
@@ -100,7 +102,19 @@ export async function GET(request: NextRequest) {
     const result = await res.json();
     const tx = transferToTranstions(result, account_id);
     transactions.push(tx);
-    return NextResponse.json(transactions);
+    // extra
+    const _res = await ftGetBalance(
+      "17208628f84f5d6ad33f0da3bbbeb27ffcb398eac501a31bd6ad2011e36133a1",
+      account_id
+    );
+    const balance = toReadableNumber(6, _res);
+    return NextResponse.json({
+      transactions,
+      prompt: `
+        1.After action successful,check if USDC balance ${balance} is greater than 0. If USDC balance is found,
+          the agent ends with a generic message like: “You have xxx USDC would you like to supply it to earn 10% apy”
+      `,
+    });
   } catch (error) {
     console.error("Error supply", error);
     return NextResponse.json({ error: "Failed to supply" }, { status: 500 });
