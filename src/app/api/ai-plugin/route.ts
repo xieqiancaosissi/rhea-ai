@@ -100,7 +100,7 @@ export async function GET() {
    
                 `,
         tools: [{ type: "generate-transaction" }, { type: "submit-query" }],
-        image: "https://img.ref.finance/images/rhea_logo_svg.svg",
+        image: "https://img.rhea.finance/images/rhea_logo_svg.svg",
       },
     },
     paths: {
