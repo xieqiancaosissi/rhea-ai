@@ -47,6 +47,7 @@ export async function GET() {
                     Understand what points are
                     Discover the top tokens on Rhea Finance
                     Find the tokens with the highest supply APYs
+                    Supply USDC, USDT, or FRAX now and earn up to (9% ~ 15%) APY — don’t miss out on these high-yield opportunities!  
 
                     1. API Endpoint Usage:
                       /api/tools/supply: Supply token.
