@@ -7,7 +7,7 @@ export async function GET() {
     info: {
       title: "Rhea finance API",
       description:
-        "APIs used to perform supply, borrow, withdraw, adjust, repay and swap operations on Rhea finance",
+        "APIs used to perform supply, borrow, withdraw, adjust, repay and swap operations on Rhea finance.",
       version: "1.0.0",
     },
     servers: [
