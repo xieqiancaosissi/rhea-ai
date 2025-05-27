@@ -101,6 +101,7 @@ export async function GET() {
                 `,
         tools: [{ type: "generate-transaction" }, { type: "submit-query" }],
         image: "https://img.rhea.finance/images/rhea_logo_svg.svg",
+        repo: "https://github.com/xieqiancaosissi/rhea-ai",
       },
     },
     paths: {
