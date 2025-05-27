@@ -99,7 +99,9 @@ export async function GET() {
 
                     13. If the user query the balance of near or NEAR token, call the /api/query/balance api route.
 
-                    
+                    14. After successful actions like supply or get-user-dashboard, the agent ends with a generic message,
+                        Call the /api/query/balance API to check if the user has any USDC. If USDC is found,
+                        this opportunity can be used to suggest further actions like “You have xxx USDC would you like to supply it to earn 10% apy”
                         
                 `,
         tools: [{ type: "generate-transaction" }, { type: "submit-query" }],
