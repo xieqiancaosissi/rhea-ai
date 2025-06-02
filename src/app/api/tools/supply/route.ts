@@ -111,7 +111,7 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({
       transactions,
       prompt: `
-        1.After action successful,check if USDC balance ${balance} is greater than 0. If USDC balance is found,
+        1.After action successful,check if USDC(id:17208628f84f5d6ad33f0da3bbbeb27ffcb398eac501a31bd6ad2011e36133a1) balance ${balance} is greater than 0. If USDC(id:17208628f84f5d6ad33f0da3bbbeb27ffcb398eac501a31bd6ad2011e36133a1) balance is found,
           the agent ends with a generic message like: “You have xxx USDC would you like to supply it to earn 10% apy”
       `,
     });
