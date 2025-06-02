@@ -17,12 +17,16 @@ interface IAsset {
   id: string;
 }
 export async function getListToken() {
-  const hbtcId = "0316eb71485b0ab14103307bf65a021042c6d380.factory.bridge.near";
   const list_token = await fetch(`${INDEXER_DOMAIN_URL}/list-token`).then(
     (res) => res.json()
   );
-  delete list_token[hbtcId];
-  return list_token;
+  const tokens = JSON.parse(JSON.stringify(list_token || {}));
+  Object.keys(list_token).forEach((tokenId: string) => {
+    if (!whitelisted_tokens.includes(tokenId)) {
+      delete tokens[tokenId];
+    }
+  });
+  return tokens;
 }
 export async function fetchAllPools() {
   const res = await fetch(`${INDEXER_DOMAIN_URL}/fetchAllPools`).then((res) =>

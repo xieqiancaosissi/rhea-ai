@@ -461,6 +461,7 @@ const whitelisted_tokens = [
   "059a1f1dea1020297588c316ffc30a58a1a0d4a2.factory.bridge.near",
   "token.burrow.near",
   "fusotao-token.near",
+  "v2-nearx.stader-labs.near",
   "discovol-token.near",
   "30d20208d987713f46dfd34ef128bb16c404d10f.factory.bridge.near",
   "token.sweat",
