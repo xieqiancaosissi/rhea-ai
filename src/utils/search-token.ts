@@ -54,6 +54,19 @@ export const searchTokenByName = (
 ): AllowlistedToken[] => {
   if (query.toLowerCase() === "near" || query.toLowerCase() === "wnear")
     return [list["wrap.near"]];
+  if (query.toLowerCase() === "abtc") {
+    return [
+      list["31761a152f1e96f966c041291644129144233b0b.factory.bridge.near"],
+    ];
+  }
+  if (query.toLowerCase() === "nbtc") {
+    return [list["nbtc.bridge.near"]];
+  }
+  if (query.toLowerCase() === "btc" || query.toLowerCase() === "wbtc") {
+    return [
+      list["2260fac5e5542a773aa44fbcfedf7c193bc2c599.factory.bridge.near"],
+    ];
+  }
   // Search the tokens with the query
   const result = fuse.search(query);
 
@@ -130,6 +143,7 @@ export async function getDexMatchToken(tokenName: string) {
   }, {});
   const tokenList: AllowlistedToken[] = Object.values(tokenMap);
   let tokenMetadata: AllowlistedToken;
+
   tokenMetadata = searchTokenByName(tokenName, tokenMap)?.[0];
   if (!tokenMetadata) {
     tokenMetadata = tokenList.find(

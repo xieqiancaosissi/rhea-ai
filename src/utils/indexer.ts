@@ -17,9 +17,11 @@ interface IAsset {
   id: string;
 }
 export async function getListToken() {
+  const hbtcId = "0316eb71485b0ab14103307bf65a021042c6d380.factory.bridge.near";
   const list_token = await fetch(`${INDEXER_DOMAIN_URL}/list-token`).then(
     (res) => res.json()
   );
+  delete list_token[hbtcId];
   return list_token;
 }
 export async function fetchAllPools() {
@@ -72,7 +74,7 @@ export async function fetchTopTokens() {
   const list = data.map((t: any) => {
     const newT: any = {};
     newT.token = t.token_id;
-    newT.symbol = t.symbol;
+    newT.symbol = t.symbol == "wNEAR" ? "NEAR" : t.symbol;
     newT.price = t.price;
     newT.volume24h = t.volume24h;
     newT.tvl = t.tvl;
