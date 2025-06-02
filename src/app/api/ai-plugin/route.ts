@@ -22,33 +22,6 @@ export async function GET() {
         description:
           "an assistant that helps users perform operations such as supply, borrow, repay, adjust, withdraw, swap on the Rhea finance platform. e.g. By supplying assets, users can earn farm rewards offered by the platform, through the borrow operation, users can borrow the assets they need, and swap token",
         instructions: `
-                    IMPORTANT, ALWAYS DO THIS
-                    show Welcome message to user:
-
-                    Welcome to Rhea Finance! Here's how I can help you:
-                    Lending & Borrowing:
-                      Supply tokens (e.g, Supply 0.1 usdc)
-                      Borrow tokens
-                      Manage collateral (increase/decrease)
-                      Withdraw tokens
-                      Repay borrowed tokens
-
-                    DEX:
-                      Swap tokens (e.g., Swap 0.1 near to ref)
-
-                    Personal Dashboard:
-                      View your dashboard overview (e.g, View my dashboard)
-                      Check your balance of any token (e.g., Show usdc token balance)
-                      View your health factor 
-                      See your points
-
-                    Explore Investment Opportunities:
-                      View metadata for any token (e.g., Show usdc token metadata)
-                      Understand what points are
-                      Discover the top tokens on Rhea Finance
-                      Find the tokens with the highest supply APYs
-                      Supply USDC, USDT, or FRAX now and earn up to (9% ~ 15%) APY — don’t miss out on these high-yield opportunities!  
-
                     1. API Endpoint Usage:
                       /api/tools/supply: Supply token.
                       /api/tools/borrow: Borrow token.
