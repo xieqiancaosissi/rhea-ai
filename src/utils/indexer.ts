@@ -7,7 +7,6 @@ import {
 } from "./constant";
 import axios from "axios";
 import { toReadableNumber } from "rhea-dex-swap-sdk";
-import { whitelisted_tokens } from "@/utils/tokens";
 interface IAsset {
   name: string;
   symbol: string;
@@ -16,13 +15,19 @@ interface IAsset {
   decimals: number;
   id: string;
 }
-export async function getListToken() {
-  const list_token = await fetch(`${INDEXER_DOMAIN_URL}/list-token`).then(
-    (res) => res.json()
-  );
+export async function getWhiteListToken() {
+  const list_token = await fetch(
+    `${INDEXER_DOMAIN_URL}/whitelisted-tokens`
+  ).then((res) => res.json());
+  const HIDDEN_TOKENS_IDS = [
+    "nearx.stader-labs.near",
+    "0316eb71485b0ab14103307bf65a021042c6d380.factory.bridge.near",
+    "nbtc.toalice.near",
+    "aurora",
+  ];
   const tokens = JSON.parse(JSON.stringify(list_token || {}));
   Object.keys(list_token).forEach((tokenId: string) => {
-    if (!whitelisted_tokens.includes(tokenId)) {
+    if (HIDDEN_TOKENS_IDS.includes(tokenId)) {
       delete tokens[tokenId];
     }
   });
@@ -96,7 +101,7 @@ export async function fetchUserTokens(accountId: string) {
   const tokenListWithBalance = tokenList.filter((t: any) =>
     new Decimal(t.balance || 0).gt(0)
   );
-  const tokens = await getListToken();
+  const tokens = await getWhiteListToken();
   const tokenMap: Record<string, IAsset> = Object.keys(tokens).reduce(
     (acc: any, token_id) => {
       const token = tokens[token_id];
@@ -116,8 +121,5 @@ export async function fetchUserTokens(accountId: string) {
       token: token.id,
     };
   });
-  const filteredList = userTokens.filter((u: any) => {
-    return whitelisted_tokens.includes(u.token);
-  });
-  return filteredList;
+  return userTokens;
 }

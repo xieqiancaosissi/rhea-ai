@@ -4,9 +4,8 @@ import type { IFuseOptions } from "fuse.js";
 import { toReadableNumber } from "@/utils/tools";
 import { allowlistedTokens } from "@/utils/allowlist-tokens";
 import type { AllowlistedToken } from "@/utils/allowlist-tokens";
-import { getListToken } from "./indexer";
+import { getWhiteListToken } from "./indexer";
 import { support_tokens } from "./tokens";
-// import { whitelisted_tokens } from "@/utils/tokens";
 interface IAccountAsset {
   apr: string;
   balance: string;
@@ -56,13 +55,7 @@ export async function getMatchTokens(
   tokenInName: string,
   tokenOutName: string
 ) {
-  const tokens = await getListToken();
-  // const tokens = JSON.parse(JSON.stringify(list_token || {}));
-  // Object.keys(list_token).forEach((tokenId: string) => {
-  //   if (!whitelisted_tokens.includes(tokenId)) {
-  //     delete tokens[tokenId];
-  //   }
-  // });
+  const tokens = await getWhiteListToken();
   const tokenMap = Object.keys(tokens).reduce((acc: any, token_id) => {
     const token = tokens[token_id];
     token.id = token_id;
@@ -120,7 +113,7 @@ export async function getDexMatchToken(tokenName: string) {
       id: "NEAR",
       decimals: 24,
     };
-  const tokens = await getListToken();
+  const tokens = await getWhiteListToken();
   const tokenMap = Object.keys(tokens).reduce((acc: any, token_id) => {
     const token = tokens[token_id];
     token.id = token_id;
@@ -150,7 +143,7 @@ export async function processAssets({
   supplied: IAccountAsset[];
   collateral: IAccountAsset[];
 }) {
-  const tokens = await getListToken();
+  const tokens = await getWhiteListToken();
   const tokenMap: Record<string, IAsset> = Object.keys(tokens).reduce(
     (acc: any, token_id) => {
       const token = tokens[token_id];
